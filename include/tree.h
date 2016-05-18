@@ -16,7 +16,7 @@ template <class T>
 ifstream & operator >> (ifstream & fin,Tree<T> &tree);
 
 
-	//Класс исключений 
+	// Исключения 
 class Exceptions {
 	char* err;
 public:
@@ -47,7 +47,6 @@ template <class T>
 class Tree{
 public:
 	Tree();
-	~Tree();
 	bool Insert(T x);// Добавление элемента 
 	bool Search(T x);// Поиск элемента 
 	friend ostream & operator<< <>(ostream &out, Tree<T> &tree);
@@ -69,7 +68,7 @@ public:
 	void del(T el);
 	T find_min (Root* el);
 private:
-	T D;
+	T K;
 	Root *l;
 	Root *r;
 };

@@ -1,29 +1,29 @@
 #include "tree.h"  
 template <class T>
-Tree<T>::Root::Root(T x) : D(x), l(nullptr), r(nullptr){}
+Tree<T>::Root::Root(T x) : K(x), l(nullptr), r(nullptr){}
 template <class T>
 void Tree<T>::Root::Insert(T x){
-	if (x < D){
+	if (x < K){
 		if (l != nullptr) l->Insert(x);
 		if (l == nullptr) l = new Root(x);
 	}
-	if (x>D){
+	if (x>K){
 		if (r != nullptr) r->Insert(x);
 		if (r == nullptr) r = new Root(x);
 	}
 }
 template <class T>
 bool Tree<T>::Root::Search(T x){
-	if (x == D) { return true; }
-	if (x > D) if (r != nullptr) return(r->Search(x));
-	if (x < D) if (l != nullptr) return(l->Search(x));
+	if (x == K) { return true; }
+	if (x > K) if (r != nullptr) return(r->Search(x));
+	if (x < K) if (l != nullptr) return(l->Search(x));
 	return false;
 }
 template <class T>
 bool Tree<T>::Root::print_console(){
 	if (this != nullptr){
 		if (l != nullptr) l->print_console();
-		cout << D << " ";
+		cout << K << " ";
 		if (r != nullptr) r->print_console();
 		return true;
 	}
@@ -34,7 +34,7 @@ bool Tree<T>::Root::print_file(ofstream &fout){
 	if (this != nullptr){
 		if (fout.is_open()){
 			if (l != nullptr) l->print_file(fout);
-			fout << D << " ";
+			fout << K << " ";
 			if (r != nullptr) r->print_file(fout);
 		}
 		return true;

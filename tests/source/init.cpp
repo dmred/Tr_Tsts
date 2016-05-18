@@ -1,9 +1,9 @@
 #include <tree.cpp>
 #include <catch.hpp>
 #include <fstream>
-#include <iostream>
+#include <iostream> 
 using namespace std;
-
+                  
 SCENARIO("Add_int", "[add]"){
   Tree<int> tree;
   REQUIRE(tree.Insert(7));
@@ -198,4 +198,81 @@ try{fout<<tree;}
 catch(Empty &e){O++;}
 fout.close();
 REQUIRE(O==1);
+}
+
+
+SCENARIO("Del", "[del]"){
+Tree<int> tree; int O=0;
+tree.Insert(1);
+tree.Insert(4);
+tree.Insert(10);
+tree.Insert(3);
+tree.Insert(5);
+tree.Insert(8);
+tree.Insert(11);
+//Удаляем корнень
+REQUIRE(tree.del(1));
+REQUIRE(!tree.Search(1));
+REQUIRE(tree.Search(4));
+REQUIRE(tree.Search(10));
+REQUIRE(tree.Search(3));
+REQUIRE(tree.Search(5));
+REQUIRE(tree.Search(8));
+REQUIRE(tree.Search(11));
+//Удаляем элемент с 2мя поддеревьями
+REQUIRE(tree.del(4));
+REQUIRE(!tree.Search(1));
+REQUIRE(!tree.Search(4));
+REQUIRE(tree.Search(10));
+REQUIRE(tree.Search(3));
+REQUIRE(tree.Search(5));
+REQUIRE(tree.Search(8));
+REQUIRE(tree.Search(11));
+//Удаляем элемент с 1 поддеревом
+REQUIRE(tree.del(5));
+REQUIRE(!tree.Search(1));
+REQUIRE(!tree.Search(4));
+REQUIRE(tree.Search(10));
+REQUIRE(tree.Search(3));
+REQUIRE(!tree.Search(5));
+REQUIRE(tree.Search(8));
+REQUIRE(tree.Search(11));
+//Удаляем лист
+REQUIRE(tree.del(3));
+REQUIRE(!tree.Search(1));
+REQUIRE(!tree.Search(4));
+REQUIRE(tree.Search(10));
+REQUIRE(!tree.Search(3));
+REQUIRE(!tree.Search(5));
+REQUIRE(tree.Search(8));
+REQUIRE(tree.Search(11));
+//Удаляем элемент с 1 поддеревом
+REQUIRE(tree.del(10));
+REQUIRE(!tree.Search(1));
+REQUIRE(!tree.Search(4));
+REQUIRE(!tree.Search(10));
+REQUIRE(!tree.Search(3));
+REQUIRE(!tree.Search(5));
+REQUIRE(tree.Search(8));
+REQUIRE(tree.Search(11));
+//Удаляем лист
+REQUIRE(tree.del(11));
+REQUIRE(!tree.Search(1));
+REQUIRE(!tree.Search(4));
+REQUIRE(!tree.Search(10));
+REQUIRE(!tree.Search(3));
+REQUIRE(!tree.Search(5));
+REQUIRE(tree.Search(8));
+REQUIRE(!tree.Search(11));
+//Удаляем последний элемент
+try{ tree.del(8);}
+catch(Deleted &){O++;}
+REQUIRE(O==1);
+}
+
+SCENARIO("Add_int999", "[add_l]"){
+  Tree<int> tree{1,2,3};
+  REQUIRE(tree.Search(1));
+  REQUIRE(tree.Search(2));
+  REQUIRE(tree.Search(3));
 }
